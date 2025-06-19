@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sequence Predictor</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Sequence Predictor</h1>
+            <p class="subtitle">Enter a sequence of 10 numbers, e.g., [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]</p>
+            <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input name="Name" type="text" class="input-field" placeholder="[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]" required
+                           pattern="^\[\s*(\d+\s*,\s*){9}\d+\s*\]$" title="Enter exactly 10 numbers in brackets, e.g., [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]">
+                    {% if form_errors %}
+                        <p class="error">{{ form_errors }}</p>
+                    {% endif %}
+                </div>
+                <button type="submit" name="pred_button" class="predict-btn">
+                    Predict <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+            {% if result %}
+                <div class="result-card">
+                    <h2>Next Number: <span>{{ result }}</span></h2>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <script>
+        // Real-time input validation feedback
+        const input = document.querySelector('.input-field');
+        input.addEventListener('input', function() {
+            const regex = /^\[\s*(\d+\s*,\s*){9}\d+\s*\]$/;
+            this.style.borderColor = regex.test(this.value) ? '#00d4ff' : '#ff4d4d';
+        });
+    </script>
+</body>
+</html>
