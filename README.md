@@ -12,7 +12,6 @@ A sleek, modern web application built with Django that predicts the next number 
 
 ## Screenshots
 
-![Sequence Predictor Interface](screenshots/interface.png)  
 *Enter a 10-number sequence and get the next number in the sequence.*
 
 ## Prerequisites
